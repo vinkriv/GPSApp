@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -68,6 +69,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void onLocationChanged(Location location) {
         lat.setText(String.valueOf(location.getLatitude()));
         lon.setText(String.valueOf(location.getLongitude()));
+        try {
+            addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
