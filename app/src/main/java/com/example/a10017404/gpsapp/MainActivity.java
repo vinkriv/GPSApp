@@ -74,22 +74,22 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onLocationChanged(Location location) {
-        if (oldlocation!=null&& SystemClock.elapsedRealtime()>=5000){
+        if (oldlocation!=null&& SystemClock.elapsedRealtime()>=10000){
             float distance = location.distanceTo(oldlocation);
             totaldist+=distance;
-            dist.setText(String.valueOf(totaldist));
+            dist.setText("Distance: " +(String.valueOf(totaldist)));
         }
-        lat.setText(String.valueOf(location.getLatitude()));
-        lon.setText(String.valueOf(location.getLongitude()));
+        lat.setText("Lat: " +(String.valueOf(location.getLatitude())));
+        lon.setText("Long: " +(String.valueOf(location.getLongitude())));
         try {
             addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-            loc.setText(addresses.get(0).getAddressLine(0));
+            loc.setText("Address: " +(addresses.get(0).getAddressLine(0)));
         } catch (IOException e) {
             e.printStackTrace();
         }
         oldlocation=location;
         currenttime = System.currentTimeMillis();
-        time.setText("Text:" +((currenttime-initialtime)/1000));
+        time.setText("Time: " +((currenttime-initialtime)/1000));
     }
 
     @Override
